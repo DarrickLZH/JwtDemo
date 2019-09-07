@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.uchain.jwtlogindemo.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.uchain.jwtlogindemo.entity.User" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="stu_id" property="stuId" jdbcType="VARCHAR" />
+    <result column="true_name" property="trueName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="role" property="role" jdbcType="INTEGER" />
+    <result column="user_desc" property="userDesc" jdbcType="VARCHAR" />
+    <result column="user_pic_id" property="userPicId" jdbcType="INTEGER" />
+    <result column="unQualify_times" property="unqualifyTimes" jdbcType="INTEGER" />
+    <result column="group_id" property="groupId" jdbcType="INTEGER" />
+    <result column="qualify_time" property="qualifyTime" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.uchain.jwtlogindemo.entity.User" >
+    insert into user (id, stu_id, true_name, 
+      `password`, `role`, user_desc, 
+      user_pic_id, unQualify_times, group_id, 
+      qualify_time)
+    values (#{id,jdbcType=INTEGER}, #{stuId,jdbcType=VARCHAR}, #{trueName,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{role,jdbcType=INTEGER}, #{userDesc,jdbcType=VARCHAR}, 
+      #{userPicId,jdbcType=INTEGER}, #{unqualifyTimes,jdbcType=INTEGER}, #{groupId,jdbcType=INTEGER}, 
+      #{qualifyTime,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.uchain.jwtlogindemo.entity.User" >
+    update user
+    set stu_id = #{stuId,jdbcType=VARCHAR},
+      true_name = #{trueName,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      `role` = #{role,jdbcType=INTEGER},
+      user_desc = #{userDesc,jdbcType=VARCHAR},
+      user_pic_id = #{userPicId,jdbcType=INTEGER},
+      unQualify_times = #{unqualifyTimes,jdbcType=INTEGER},
+      group_id = #{groupId,jdbcType=INTEGER},
+      qualify_time = #{qualifyTime,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select id, stu_id, true_name, `password`, `role`, user_desc, user_pic_id, unQualify_times, 
+    group_id, qualify_time
+    from user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, stu_id, true_name, `password`, `role`, user_desc, user_pic_id, unQualify_times, 
+    group_id, qualify_time
+    from user
+  </select>
+    <select id="getUserByUserId" resultType="com.uchain.jwtlogindemo.entity.User">
+    select id, stu_id stuId, true_name trueName, `password`, `role`, user_desc userDesc, user_pic_id, unQualify_times unQualifyTimes,
+    group_id groupId, qualify_time qualifyTime
+    from user
+    where
+    stu_id = #{stuId}
+    </select>
+</mapper>
